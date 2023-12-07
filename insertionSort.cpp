@@ -1,47 +1,48 @@
-#include <stdio.h>
 #include <iostream>
-#include <math.h>
-
 using namespace std;
 
-void printArray(int arr[], int n)
+void insertionSort(int arr[], int size)
 {
-	int i;
-	for(i = 0; i < n; i++)
+	int i, j, key;
+	
+	//starting from the second index because
+	//there is no element to compare with the first index
+	for(i = 1; i < size; i++)
+	{	
+		//key is the index thats being added to the 'sorted list'
+		key = arr[i];
+		//j is the index that going to be compared with the new element
+		j = i - 1;
+		//until j reaches the start of the list and
+		//key finds its place in the sorted list
+		//swap j with the key element
+		while(j >= 0 && arr[j] > key)
+		{
+			arr[j + 1] = arr[j];
+			j = j - 1;
+ 		}
+ 		arr[j + 1] = key;
+	}
+}
+
+void printArray(int arr[], int size)
+{
+	for(int i = 0; i < size; i++)
 	{
-		cout<<arr[i]<< ' ';
-		
+		cout<<arr[i]<<" ";
 	}
 	cout<<endl;
 }
 
-void insertionSort(int arr[], int n)
+int main()
 {
-	printArray(arr, n);
-
-	int i, j, key;
+	int arr[] = {7,3,5,8,2,9,4,15,6};
 	
-	for(i = 1; i < n; i++)
-	{
-		key = arr[i];
-		j = i -1;
-		while(j >= 0 && arr[j]> key)
-		{
-			arr[j+1] = arr[j];
-			j = j-1;
-		}
-		arr[j+1] = key;
-		printArray(arr, n);
-	}
-}
-
-
-int main (){
-	int arr[] = {2, 4, 6, 0, 1, 3, 12, 9, 5, 7, 13};
-	int n = sizeof(arr) / sizeof(arr[0]);
+	//sizeof function returns in bytes
+	//so to find the actual size of an array you either have to
+	//divide it by its first index's size or type's size
+	int size_arr = sizeof(arr) / sizeof(int);
 	
-	insertionSort(arr, n);
-	printArray(arr, n);
-	
-	return 0;
+	insertionSort(arr, size_arr);
+	printArray(arr, size_arr);
 }
