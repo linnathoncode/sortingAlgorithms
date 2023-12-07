@@ -1,50 +1,54 @@
-#include <stdio.h>
 #include <iostream>
-#include <math.h>
-
 using namespace std;
 
-void printArray(int arr[], int n)
-{
-	int i;
-	for(i = 0; i < n; i++)
-	{
-		cout<<arr[i]<< ' ';
-		
-	}
-	cout<<endl;
-}
-void swap(int *xp, int *yp)
+void swap(int *xp, int * yp)
 {
 	int temp = *xp;
 	*xp = *yp;
 	*yp = temp;
 }
 
-void selectionSort(int arr[], int n)
+void selectionSort(int arr[], int size)
 {
-	printArray(arr, n);
+	int i, j, min_index;
 	
-	int i, j, min_idx;
-	
-	for(i = 0; i < n-1; i++)
+	//traverse through every element but the last one
+	for(i = 0; i < size - 1; i++)
 	{
-		min_idx = i;
-		for(j = i+1; j < n; j++)
-		{
-			if(arr[j]< arr[min_idx]) min_idx = j;
+		min_index = i;
+		//finding the min element
+		//compare the selected min element with the
+		//every remaining element on the list 
+		//find the one thats smallest among them
+		for(j = i + 1; j < size; j++)
+		{	
+			if(arr[j] < arr[min_index])
+			{
+				min_index = j;
+			}
 		}
-		swap(&arr[min_idx], &arr[i]);
-		printArray(arr, n);
+		swap(&arr[min_index], &arr[i]);
 	}
 }
 
-int main (){
-	int arr[] = {2, 4, 6, 0, 1, 3, 12, 9, 5, 7, 13};
-	int n = sizeof(arr) / sizeof(arr[0]);
+void printArray(int arr[], int size)
+{
+	for(int i = 0; i < size; i++)
+	{
+		cout<<arr[i]<<" ";
+	}
+	cout<<endl;
+}
+
+int main()
+{
+	int arr[] = {7,3,5,8,2,9,4,15,6};
 	
-	selectionSort(arr, n);
-	printArray(arr, n);
+	//sizeof function returns in bytes
+	//so to find the actual size of an array you either have to
+	//divide it by its first index's size or type's size
+	int size_arr = sizeof(arr) / sizeof(int);
 	
-	return 0;
+	selectionSort(arr, size_arr);
+	printArray(arr, size_arr);
 }
